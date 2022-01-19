@@ -18,6 +18,11 @@ public class Main {
 
         System.out.println("Your monthly payment is: $"+toFixed2.format(calculateMortgage(principal, monthlyInterest,numberOfPayments)));
 
+        System.out.println("The remaining balance is: ");
+        for (short month = 1; month <= numberOfPayments ; month++) {
+            System.out.print("Month "+month+" : ");
+            System.out.println("$"+toFixed2.format(calculateBalance(principal, monthlyInterest,numberOfPayments, month)));
+        }
     }
 
     public static double readNumber(String prompt, int min, int max) {
@@ -36,6 +41,12 @@ public class Main {
     public static double calculateMortgage (int principal, float monthlyInterest, int numberOfPayments) {
         return principal *
                 (monthlyInterest * Math.pow(1+monthlyInterest,numberOfPayments))
+                / ( Math.pow(1+monthlyInterest,numberOfPayments) -1);
+    }
+
+    public static double calculateBalance(int principal, float monthlyInterest,int numberOfPayments, short numberOfPaymentsMade) {
+        return principal *
+                (Math.pow(1+monthlyInterest,numberOfPayments) - Math.pow(1+monthlyInterest,numberOfPaymentsMade))
                 / ( Math.pow(1+monthlyInterest,numberOfPayments) -1);
     }
 
